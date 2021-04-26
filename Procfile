@@ -1,1 +1,1 @@
-web: gunicorn app:plate
+web: gunicorn plate:app
