@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,render_template
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -24,7 +24,7 @@ class Vehicle(db.Model):
 
 @app.route('/')
 def index():
-    return 'License Plate API - Etomi Emina'
+    return render_template('index.html')
 
 
 @app.route('/plates',methods=['GET'])
@@ -38,7 +38,7 @@ def get_vehicles():
     
     
 
-@app.route('/plates',methods=['POST'])
+@app.route('/plates/add',methods=['POST'])
 def add_plate():
     vehicle = Vehicle(plate = request.json['plate'],driver=request.json['driver'],color=request.json['color'],car_type=request.json['car_type'],is_ban=request.json['is_ban'],comment=request.json['comment'])
     db.session.add(vehicle)
@@ -61,7 +61,7 @@ def get_vehicle(plate):
     }
 
 
-@app.route('/plates/<plate>',methods=['PUT'])
+@app.route('/plates/<plate>/update',methods=['PUT'])
 def update_plate(plate):
     vehicle = Vehicle.query.filter_by(plate=plate).first()
     vehicle.plate = request.json['plate']
