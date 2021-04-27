@@ -1,9 +1,8 @@
 from flask import Flask,request,render_template,url_for
 from flask_sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/data.db'
 db = SQLAlchemy(app)
 
 class Vehicle(db.Model):
@@ -20,12 +19,9 @@ class Vehicle(db.Model):
     def __repr__(self):
         return f"{self.color} {self.car_type} - plate number:{self.plate}"
 
-
-
 @app.route('/')
 def index():
     return render_template('main.html')
-
 
 @app.route('/plates',methods=['GET'])
 def get_vehicles():
@@ -36,16 +32,12 @@ def get_vehicles():
             output.append(vehicle_data)
         return {'vehicles':output}
     
-    
-
 @app.route('/plates/add',methods=['POST'])
 def add_plate():
     vehicle = Vehicle(plate = request.json['plate'],driver=request.json['driver'],color=request.json['color'],car_type=request.json['car_type'],is_ban=request.json['is_ban'],comment=request.json['comment'])
     db.session.add(vehicle)
     db.session.commit()
     return {'id':vehicle.id}
-
-
 
 @app.route('/plates/<plate>',methods=['GET'])
 def get_vehicle(plate):
@@ -58,7 +50,6 @@ def get_vehicle(plate):
         'is_ban':vehicle.is_ban,
         'comment':vehicle.comment,
     }
-
 
 @app.route('/plates/<plate>/update',methods=['PUT'])
 def update_plate(plate):
