@@ -6,15 +6,15 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
-    <title>Starter Template · Bootstrap v5.0</title>
+    <title>Etomi Emina License Plate API</title>
 
     <link rel="canonical" href="/">
 
     
 
     <!-- Bootstrap core CSS -->
-<link href="" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />    <link rel="stylesheet" href="{{url_for('static',filename='css/starter-template.css')}}">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -30,60 +30,84 @@
         }
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
   </head>
   <body>
     
 <div class="col-lg-8 mx-auto p-3 py-md-5">
   <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg>
-      <span class="fs-4">Starter template</span>
+      <i class="fas fa-address-card"></i>
+      <span style="padding-left:3px;" class="fs-4">Etomi License Plate API documentation</span>
     </a>
   </header>
 
-  <h1>Get started with Bootstrap</h1>
-  <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
-
-  <div class="mb-5">
-    <a href="../examples/" class="btn btn-primary btn-lg px-4">Download examples</a>
-  </div>
-
-  <hr class="col-3 col-md-2 mb-5">
-
+  <h2>Introduction</h2>
+  <p class="fs-5 col-md-8">
+    This RESTful API is developed using Flask. Flask is a Python web framework, meaning it is a third-party Python library used for developing web applications.</p>
+  <h2>The API</h2>
+  <p class="fs-5 col-md-8">The license plate recognition API provides a few endpoints that allow the main 
+    application fetch records relating to any plate number in the database. The API used a document format
+     NoSQL database to store data in documents similar to JSON (JavaScript Object Notation) objects. 
+     This choice of database is informed by the fact that NoSQL databases were built with flexibility and
+      scalability in mind when compared with relational databases.</p>
+  <h2>Endpoints</h2>
+  <p class="fs-5 col-md-8">Base URI: <code>https://etomi-api.herokuapp.com</code></p>
+    <ol type=1>
+      <li><code>‘/’</code>: returns the documentation page of the api (this page you are viewing now).</li>
+      <li><code>/plates</code>: return all Plate numbers in the database. HTTP request type is [GET]</li>
+      <li><code>/plates/&ltplate&gt</code>: returns all  the data associated with a specific plate number. HTTP request type is [GET]</li>
+      <li><code>/plates/add</code>: adds a new plate number and its related data to the database. HTTP request type is [POST]</li>
+      <li><code>/plates/&ltplate&gt/update</code>: updates the records of the specified plate number. HTTP request type is [PUT]</li>
+      <li><code>/plates/&ltplate&gt/delete</code>: deletes the records of a specific plate number. HTTP request type is [DELETE]</li>
+    </ol>
+  <h2>Usage</h2>
+  <p>Imports: <code>import requests,json</code></p>
+  <ol type=A>
+    <li>Ensure that <code>requests</code> is installed in your application otherwise, install it. Then  
+      import requests and json
+      </li>
+    <li>Make API call: <code>response = requests.get(BaseURI + endpoint')</code>
+      <p>For example, to request the information about a specific 
+        plate number: combine the base url <code>https://etomi-api.herokuapp.com</code> 
+        and the endpoint <code>/plates/&ltplate&gt</code> </p>
+      <p>So your API call will look like this: <code>response = requests.get('https://etomi-api.herokuapp.com/plates/ABC53GC')</code></p>
+      <p><strong>NOTE:</strong> the plate number should be passed as a variable not hardcoded like the example above. You can do this:
+      </p>
+      <p><pre style="background-color:#e8e8e8;border-left: 4px solid #04AA6D;">
+        plate_number = 'ABC53GC'
+        response = requests.get('https://etomi-api.herokuapp.com/plates/'+ plate_number)
+      </pre></p>
+    </li>
+    <li>Convert response to JSON object: <code>vehicle = response.json()</code>
+      <p>The JSON object is a python dictionary and it looks like this:</p>
+      <p><code><pre style="background-color:#e8e8e8;border-left: 4px solid #04AA6D;">
+        {
+          car_type: "Toyota Camery",
+          color: "Black",
+          comment: "This plate has never been flagged",
+          driver: "Onoriode Thompson",
+          is_ban: 0,
+          plate: "ABC53GC"
+        }
+      </pre></code></p>
+      <p>Use <code>vehicle['car_type']</code> to access the the car type</p>
+    </li>
+  </ol>
   <div class="row g-5">
     <div class="col-md-6">
-      <h2>Starter projects</h2>
-      <p>Ready to beyond the starter template? Check out these open source projects that you can quickly duplicate to a new GitHub repository.</p>
+      <h2>The Data Structure</h2>
+      <p>Visit the following links to see how the structure of the response looks like.</p>
       <ul class="icon-list">
-        <li><a href="https://github.com/twbs/bootstrap-npm-starter" rel="noopener" target="_blank">Bootstrap npm starter</a></li>
-        <li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>
-      </ul>
-    </div>
-
-    <div class="col-md-6">
-      <h2>Guides</h2>
-      <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
-      <ul class="icon-list">
-        <li><a href="../getting-started/introduction/">Bootstrap quick start guide</a></li>
-        <li><a href="../getting-started/webpack/">Bootstrap Webpack guide</a></li>
-        <li><a href="../getting-started/parcel/">Bootstrap Parcel guide</a></li>
-        <li><a href="../getting-started/build-tools/">Contributing to Bootstrap</a></li>
+        <li><a href="/plates">All plate numbers</a></li>
+        <li><a href="/plates/ABC53GC">Single plate number</a></li>
       </ul>
     </div>
   </div>
 
   <footer class="pt-5 my-5 text-muted border-top">
-    Created by the Bootstrap team &middot; &copy; 2021
+    Created by Etomi Emina &middot; &copy; 2021
   </footer>
 </div>
 
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      
   </body>
 </html>

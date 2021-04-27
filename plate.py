@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -24,7 +24,7 @@ class Vehicle(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('main.html')
 
 
 @app.route('/plates',methods=['GET'])
@@ -34,7 +34,7 @@ def get_vehicles():
         for vehicle in vehicles:
             vehicle_data = {'plate':vehicle.plate,'driver':vehicle.driver,'color':vehicle.color,'car_type':vehicle.car_type,'is_ban':vehicle.is_ban,'comment':vehicle.comment}
             output.append(vehicle_data)
-        return {'vehicles':output,'message':'SUCCESS'}
+        return {'vehicles':output}
     
     
 
@@ -43,7 +43,7 @@ def add_plate():
     vehicle = Vehicle(plate = request.json['plate'],driver=request.json['driver'],color=request.json['color'],car_type=request.json['car_type'],is_ban=request.json['is_ban'],comment=request.json['comment'])
     db.session.add(vehicle)
     db.session.commit()
-    return {'id':vehicle.id,'message':'SUCCESS'}
+    return {'id':vehicle.id}
 
 
 
@@ -57,7 +57,6 @@ def get_vehicle(plate):
         'car_type':vehicle.car_type,
         'is_ban':vehicle.is_ban,
         'comment':vehicle.comment,
-        'message':'SUCESS'
     }
 
 
@@ -78,7 +77,6 @@ def update_plate(plate):
         'car_type':vehicle.car_type,
         'is_ban':vehicle.is_ban,
         'comment':vehicle.comment,
-        'message':'SUCESS'
     }
 
 if __name__=='__main__':
